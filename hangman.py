@@ -22,7 +22,7 @@ else :
 for letter in word:
 	hidden_word += '_'
 print(f"Good luck !\n***{hidden_word}***\n")
-while lives and hidden_word.find('_') != -1 :
+while lives and '_' in hidden_word :
 	guess = input("Gimme a letter\n").lower()[0]
 	if word.find(guess) == -1 :
 		lives -= 1
