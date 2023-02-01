@@ -1,5 +1,54 @@
 import random
-
+hangman_ascii = ['''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========''']
 def replace_index(str_a, str_b, index):
 	if index == 0:
 		str_a = str_b + str_a[1:]
@@ -9,23 +58,23 @@ def replace_index(str_a, str_b, index):
 
 user_word = input("Write a word, or just press enter for a random word.\n").lower()
 word_list = ["wapiti", "rotationnel", "sensations", "reptilien"]
-lives = 5
+lives = 0
 word = ""
 hidden_word = ""
 
 if user_word :
 	word = user_word
-	print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 else :
 	word = random.choice(word_list)
-
 for letter in word:
 	hidden_word += '_'
-print(f"Good luck !\n***{hidden_word}***\n")
-while lives and '_' in hidden_word :
+
+print(f"Good luck !\n{hangman_ascii[0]}\n***{hidden_word}***\n")
+
+while lives != 6 and '_' in hidden_word :
 	guess = input("Gimme a letter\n").lower()[0]
 	if word.find(guess) == -1 :
-		lives -= 1
+		lives += 1
 		print(f"Nope, no '{guess}' :(\n")
 
 	else :
@@ -35,5 +84,8 @@ while lives and '_' in hidden_word :
 			word = replace_index(word, "_", found)
 			print(f"Nice !\n")
 			found = word.find(guess)
-	print(f"Lives left : {lives}\n***{hidden_word}***")
-
+	print(f"{hangman_ascii[lives]}\n***{hidden_word}***")
+if lives == 6 :
+	print("You lost :(")
+else :
+	print("Congrats !")
